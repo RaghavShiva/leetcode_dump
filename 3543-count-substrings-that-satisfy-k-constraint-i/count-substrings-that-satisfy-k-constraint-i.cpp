@@ -1,21 +1,21 @@
 class Solution {
 public:
     int countKConstraintSubstrings(string s, int k) {
-        int n=s.size();
-        int c=0;
-        for(int i=0;i<n;i++){
-            int a=0,b=0;
-            for(int j=i;j<n;j++){
-                if(s[j]=='0')
-                a++;
-                else
-                b++;
-                if(a<=k || b<=k)
-                c++;
-                else
-                break;
-            }
+        int n = s.size();
+    vector<int> countZero(n + 1, 0), countOne(n + 1, 0);
+    int result = 0, j = 0;
+
+    for (int i = 0; i < n; ++i) {
+        countZero[i + 1] = countZero[i] + (s[i] == '0');
+        countOne[i + 1] = countOne[i] + (s[i] == '1');
+
+        while (countZero[i + 1] - countZero[j] > k && countOne[i + 1] - countOne[j] > k) {
+            ++j;
         }
-        return c;
+
+        result += i - j + 1;
+    }
+
+    return result;
     }
 };
