@@ -12,14 +12,15 @@ public:
     }
     int rob(vector<int>& nums) {
         int n=nums.size();
-        vector<int>dp(n+1,0);
-        dp[1]=nums[0];
+        int ptp=0,pr;
+        pr=nums[0];
         for(int i=2;i<=n;i++){
-            int p = nums[i-1]+dp[i-2];
-            int np = dp[i-1];
-            dp[i]=max(p,np);
+            int p = nums[i-1]+ptp;
+            int np = pr;
+            ptp=pr;
+            pr=max(p,np);
         }
-        return dp[n];
+        return pr;
 
     
   
