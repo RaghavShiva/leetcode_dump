@@ -13,19 +13,16 @@ public:
         return dp[i][j]=down+right;
     }
     int uniquePaths(int m, int n) {
-        vector<int>cur(n+1,0),prev(n+1,0);
+        vector<int>cur(n+1,0);
         for(int i=1;i<=m;i++){
             for(int j=1;j<=n;j++){
                 if(i==1 && j==1){
                     cur[j]=1;
                 }
                 else{
-                    int down = prev[j];
-                    int right = cur[j-1];
-                    cur[j]=down+right;
+                    cur[j]+=cur[j-1];
                 }
             }
-            prev=cur;
         }
         return cur[n];
     }
