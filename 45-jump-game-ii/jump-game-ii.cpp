@@ -7,7 +7,7 @@ public:
         if(n == 1){
             return 0;
         }
-        while(r < n){
+        while(r < n - 1){
             int mx = 0;
             for(int i = l; i <= r; i++){
                 mx = max(mx, i + nums[i]);
@@ -15,9 +15,6 @@ public:
             ans++;
             l = r + 1;
             r = mx;
-            if(r >= n - 1){
-                return ans;
-            }
         }
         return ans;
     }
