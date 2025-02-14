@@ -2,19 +2,24 @@ class ProductOfNumbers {
 public:
     vector<int>v;
     ProductOfNumbers() {
-        
+        v.push_back(1);
     }
     
     void add(int num) {
-        v.push_back(num);
+        if(num==0){
+
+            v={1};
+        }
+        else
+        v.push_back(num*v.back());
     }
     
     int getProduct(int k) {
         int n = v.size();
-        int ans = 1;
-        for(int i=0;i<k;i++){
-            ans *= v[n-1-i];
+        if(n<=k){
+            return 0;
         }
+        int ans = v[n-1]/v[n-1-k];
         return ans;
     }
 };
