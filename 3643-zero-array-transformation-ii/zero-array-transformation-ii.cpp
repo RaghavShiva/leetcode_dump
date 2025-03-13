@@ -1,7 +1,7 @@
 class Solution {
 public:
     bool helper(vector<int>& nums,vector<vector<int>>& queries,int n,int q){
-         vector<long long>v(n+1,0);
+         vector<int>v(n+1,0);
         for(int i=0;i<q;i++){
             v[queries[i][0]]+=queries[i][2];
             v[queries[i][1]+1]-=queries[i][2];
