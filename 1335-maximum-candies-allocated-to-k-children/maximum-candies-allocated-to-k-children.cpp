@@ -3,7 +3,7 @@ public:
     bool helper(int m,vector<int>candies, long long k){
         long long cnt=0;
         for(int i=0;i<candies.size();i++){
-            cnt+=(candies[i]/m);
+            cnt+=candies[i]/m;
         }
         return cnt>=k;
     }
