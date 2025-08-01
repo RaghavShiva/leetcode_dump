@@ -2,7 +2,7 @@ class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
         int n = nums.size();
-        int ans = -1e9;
+        int ans = -1e4;
         int sub_sum=0;
         
         for(int i=0;i<n;i++){
