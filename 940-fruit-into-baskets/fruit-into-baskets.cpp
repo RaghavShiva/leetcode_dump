@@ -26,13 +26,11 @@ public:
                     }
                     else{
                         k=r;
-                        
                         r=i;
                     }
                 }
             }
             ans = max(ans,max(l,r)-k);
-            cout<<ans<<' ';
         }
         return ans;
     }
