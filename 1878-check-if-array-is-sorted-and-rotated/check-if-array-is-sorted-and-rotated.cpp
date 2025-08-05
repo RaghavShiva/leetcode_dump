@@ -1,22 +1,17 @@
 class Solution {
 public:
     bool check(vector<int>& nums) {
-        int t=0,c=100;
+        int c=0;
         int n=nums.size();
         for(int i=0;i<n-1;i++){
-            t=nums[i]-nums[i+1];
-            if(t>0){
-                if(c==100)
-                c=nums[i];
-                else
-                return false;
+            if(nums[i]>nums[i+1]){
+                c++;
             }
-            if(nums[i]>c)
+            if(c>1)
             return false;
         }
-        if(nums[n-1]>c || (c!=100 && nums[0]<nums[n-1]))
-        return false;
-      
-        return true;
+        if(nums[0]<nums[n-1])
+        c++;
+        return c<=1;
     }
 };
