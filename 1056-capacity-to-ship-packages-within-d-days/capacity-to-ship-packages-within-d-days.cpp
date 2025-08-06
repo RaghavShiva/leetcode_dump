@@ -16,7 +16,8 @@ public:
     }
     int shipWithinDays(vector<int>& weights, int days) {
         int n = weights.size();
-        int l=1, h=1e8;
+        int l, h=1e8;
+        l = *min_element(weights.begin(),weights.end());
         while(l<=h){
             int m = (l+h)/2;
             if(helper(m,weights,days,n)){
