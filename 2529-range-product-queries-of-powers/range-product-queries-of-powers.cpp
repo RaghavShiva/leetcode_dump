@@ -1,27 +1,25 @@
 class Solution {
 public:
     vector<int> productQueries(int n, vector<vector<int>>& queries) {
-        vector<int> bins;
-        int rep = 1;
+        int mod = 1e9+7;
+        vector<int> v;
+        int b = 1;
         while (n) {
             if (n % 2 == 1) {
-                bins.push_back(rep);
+                v.push_back(b);
             }
             n /= 2;
-            rep *= 2;
+            b *= 2;
         }
 
         vector<int> ans;
-        for (const auto& query : queries) {
+        for (auto query : queries) {
             int cur = 1;
             for (int i = query[0]; i <= query[1]; ++i) {
-                cur = static_cast<long long>(cur) * bins[i] % mod;
+                cur = (cur*1ll* v[i]) % mod;
             }
             ans.push_back(cur);
         }
         return ans;
     }
-
-private:
-    static constexpr int mod = 1000000007;
 };
