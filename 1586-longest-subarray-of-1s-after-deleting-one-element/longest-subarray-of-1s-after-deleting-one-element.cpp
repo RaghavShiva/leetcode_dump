@@ -26,7 +26,6 @@ public:
         n = v.size()-1;
         int ans=0;
         for(int i=1;i<n;i++){
-            cout<<v[i]<<" "<<endl;
             if(v[i]==0){
                 ans = max(ans, v[i-1]+v[i+1]);
             }
