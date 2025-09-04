@@ -33,12 +33,23 @@ public:
         }
 
         int target = sum/2;
-        vector<vector<int>> dp(n,vector<int> (target+1,-1));
-        // space-200*(100*200)
-        // n*sum;
-        return helper(nums,n-1,target,dp);
+        vector<vector<bool>> dp(n+1,vector<bool> (target+1,false));
+        for(int i=0;i<=n;i++){
+            dp[i][0]=true;
+        }
+        for(int i=1;i<=n;i++){
+            for(int j=0;j<=target;j++){
+                bool not_taken = dp[i-1][j];
+                bool taken = false;
+                if(j>=nums[i-1]){
+                    taken = dp[i-1][j-nums[i-1]];
+                }
+                dp[i][j] = taken|not_taken;
+            }
+        }
+        return dp[n][target];
     }
 };
 
 // tc - O(n*sum)
-// sc - O(n*sum)+stack space
+// sc - O(n*sum)
