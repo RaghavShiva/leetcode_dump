@@ -33,23 +33,23 @@ public:
         }
 
         int target = sum/2;
-        vector<vector<bool>> dp(n+1,vector<bool> (target+1,false));
-        for(int i=0;i<=n;i++){
-            dp[i][0]=true;
-        }
+        vector<bool> cur(target+1,false),prev(n+1,false);
+        cur[0]=true;
+
         for(int i=1;i<=n;i++){
+            prev = cur;
             for(int j=0;j<=target;j++){
-                bool not_taken = dp[i-1][j];
+                bool not_taken = prev[j];
                 bool taken = false;
                 if(j>=nums[i-1]){
-                    taken = dp[i-1][j-nums[i-1]];
+                    taken = prev[j-nums[i-1]];
                 }
-                dp[i][j] = taken|not_taken;
+                cur[j] = taken|not_taken;
             }
         }
-        return dp[n][target];
+        return cur[target];
     }
 };
 
 // tc - O(n*sum)
-// sc - O(n*sum)
+// sc - O(sum)
