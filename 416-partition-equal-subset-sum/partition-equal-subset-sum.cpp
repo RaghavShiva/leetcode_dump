@@ -39,3 +39,6 @@ public:
         return helper(nums,n-1,target,dp);
     }
 };
+
+// tc - O(n*sum)
+// sc - O(n*sum)+stack space
