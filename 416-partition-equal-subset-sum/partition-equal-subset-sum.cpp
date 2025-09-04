@@ -33,16 +33,16 @@ public:
         }
 
         int target = sum/2;
-        vector<bool> cur(target+1,false),prev(n+1,false);
+        vector<bool> cur(target+1,false);
         cur[0]=true;
 
         for(int i=1;i<=n;i++){
-            prev = cur;
-            for(int j=0;j<=target;j++){
-                bool not_taken = prev[j];
+            cur[0]=true;
+            for(int j=target;j>=0;j--){
+                bool not_taken = cur[j];
                 bool taken = false;
                 if(j>=nums[i-1]){
-                    taken = prev[j-nums[i-1]];
+                    taken = cur[j-nums[i-1]];
                 }
                 cur[j] = taken|not_taken;
             }
@@ -52,4 +52,4 @@ public:
 };
 
 // tc - O(n*sum)
-// sc - O(sum)
+// sc - O(sum) // 2 1-D arrays -> 1 1-D array
