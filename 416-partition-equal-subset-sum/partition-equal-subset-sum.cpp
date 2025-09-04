@@ -16,14 +16,11 @@ public:
         cur[0]=true;
 
         for(int i=1;i<=n;i++){
-            // cur[0]=true;
             for(int j=target;j>=0;j--){
-                bool not_taken = cur[j];
-                bool taken = false;
+                if(cur[j]) continue;
                 if(j>=nums[i-1]){
-                    taken = cur[j-nums[i-1]];
+                    cur[j] = cur[j-nums[i-1]];
                 }
-                cur[j] = taken|not_taken;
             }
         }
         return cur[target];
