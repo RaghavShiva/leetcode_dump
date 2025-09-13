@@ -48,11 +48,9 @@ public:
         for(int i=0;i<n1;i++){
             for(int j=0;j<n2;j++){
                 int val=dp[i][j];
-                int newI=i+val;
-                int newJ=j-val;
                 int v1=0,v2=0;
-                if(newI<n1)v1=m1[newI];
-                if(newJ>=0)v2=m2[newJ];
+                if(i+val<n1)v1=m1[i+val];
+                if(j-val>=0)v2=m2[j-val];
                 ans=max(ans,max(v1,v2)+2*dp[i][j]);
             }
         }
