@@ -33,9 +33,10 @@ public:
         reverse(s.begin(),s.end());
          reverse(m1.begin(),m1.end());
         m2=fun(t);
-        vector<vector<int>>dp(n1,vector<int>(n2));
+        int dp[n1][n2];
         for(int i=n1-1;i>=0;i--){
             for(int j=0;j<n2;j++){
+                dp[i][j]=0;
                      int prev=0;
                      if(i+1<n1&&j-1>=0)
                      prev=dp[i+1][j-1];
