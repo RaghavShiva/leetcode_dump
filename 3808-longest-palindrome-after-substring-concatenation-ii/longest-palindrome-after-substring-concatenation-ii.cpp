@@ -12,7 +12,7 @@ public:
         }
         
     }
-    vector<int> fun(string& s){
+ vector<int> fun(string& s){
         int n=s.size();
         vector<int>m(n,1);
         for(int i=n-2;i>=0;i--){
@@ -21,13 +21,7 @@ public:
         }
         return m;
     }
-    int dp[1001][1001];
-    int f(int i,int j,string &s,string &t){
-        if(i>s.size()||j<0)return 0;
-        if(s[i]!=t[j])return dp[i][j]=0;
-        if(dp[i][j]!=-1)return dp[i][j];
-       return dp[i][j]=f(i+1,j-1,s,t)+1;
-    }
+   
 
     int longestPalindrome(string s, string t) {
         
@@ -39,13 +33,21 @@ public:
         reverse(s.begin(),s.end());
          reverse(m1.begin(),m1.end());
         m2=fun(t);
-        memset(dp,-1,sizeof(dp));
+        vector<vector<int>>dp(n1,vector<int>(n2));
+        for(int i=n1-1;i>=0;i--){
+            for(int j=0;j<n2;j++){
+                     int prev=0;
+                     if(i+1<n1&&j-1>=0)
+                     prev=dp[i+1][j-1];
+                     if(s[i]==t[j])
+                     dp[i][j]=prev+1;
+            }
+        }
         int ans=0;
         
         for(int i=0;i<n1;i++){
             for(int j=0;j<n2;j++){
-                int val=f(i,j,s,t);
-               
+                int val=dp[i][j];
                 int newI=i+val;
                 int newJ=j-val;
                 int v1=0,v2=0;
