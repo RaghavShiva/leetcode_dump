@@ -8,9 +8,12 @@ public:
         int ans=0;
         sort(nums.begin(),nums.end());
         for(int i=0;i<n;i++){
+            int k = 0;
             for(int j=i+1;j<n;j++){
-                int k = lower_bound(nums.begin(),nums.end(),nums[i]+nums[j])-nums.begin();
-                if(k-j>0)
+                k = max(k,j+1);
+                while(k<n && nums[i]+nums[j]>nums[k]){
+                    k++;
+                }
                 ans += k-1-j;
             }
         }
