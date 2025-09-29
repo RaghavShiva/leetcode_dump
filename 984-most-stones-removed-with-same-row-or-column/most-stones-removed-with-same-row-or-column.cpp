@@ -1,31 +1,59 @@
 class Solution {
 public:
-    void dfs(int n, vector<bool>&v, vector<vector<int>> &g){
-        v[n]=true;
-        for(auto it:g[n]){
-            if(v[it]) continue;
-            dfs(it,v,g);
-        }
-    }
-    int removeStones(vector<vector<int>>& stones) {
-        int n = stones.size();
-        vector<vector<int>> g(n);
-        for(int i=0;i<n;i++){
-            for(int j=i+1;j<n;j++){
-                if(stones[i][0]==stones[j][0] || stones[i][1]==stones[j][1]){
-                    g[i].push_back(j);
-                    g[j].push_back(i);
-                }
+    class Disjoint {
+        vector<int> par, s;
+
+    public:
+        Disjoint(int n) {
+            par.resize(n + 1);
+            s.resize(n + 1);
+            for (int i = 0; i <= n; i++) {
+                par[i] = i;
+                s[i] = 1;
             }
         }
-        vector<bool> vis(n,false);
-        int ans = 0;
-        for(int i=0;i<n;i++){
-            if(vis[i]) continue;
-            ans++;
-            dfs(i,vis,g);
+        int findP(int n) {
+            if (par[n] == n)
+                return n;
+            return par[n] = findP(par[n]);
         }
-        ans=n-ans;
+        void unionsize(int u, int v) {
+            int pu = findP(u);
+            int pv = findP(v);
+            if (pu == pv)
+                return;
+            if (s[pu] < s[pv]) {
+                par[pu] = pv;
+                s[pv] += s[pu];
+            } else {
+                par[pv] = pu;
+                s[pu] += s[pv];
+            }
+        }
+    };
+    int removeStones(vector<vector<int>>& stones) {
+        int n = stones.size();
+        unordered_map<int, int> m;
+        int ans = 0;
+        int mr=0,mc=0;
+        for(int i=0;i<n;i++){
+            mr = max(mr, stones[i][0]);
+            mc = max(mc,stones[i][1]);
+        }
+        Disjoint ds(mr+mc+1);
+        for(int i=0;i<n;i++){
+            int r = stones[i][0];
+            int c = stones[i][1]+mr+1;
+            ds.unionsize(r,c);
+            m[r]++;
+            m[c]++;
+        }
+        for(auto it:m){
+            if(ds.findP(it.first)==it.first){
+                ans++;
+            }
+        }
+        ans = n - ans;
         return ans;
     }
 };
