@@ -3,46 +3,47 @@ public:
     int longestSubstring(string s, int k) {
         int n = s.size();
         int ans = 0;
+        int mxu = 0;
+        vector<int>f(26,0);
         for(int i=0;i<n;i++){
-            unordered_map<int,int>f,m;
-            for(int j=i;j<n;j++){
-                f[s[j]-'a']++;
+            if(f[s[i]-'a']==0){
+                mxu++;
             }
-
-            for(auto it:f){
-                if(it.second<k){
-                    m[it.first]=it.second;
-                }
-            }
-
-            for(auto it:m){
-                auto itt = f.find(it.first);
-                f.erase(itt);
-            }
-
-            for(int j=n-1;j>=i;j--){
-                if(m.size()==0){
-                    ans = max(ans, j-i+1);
+            f[s[i]-'a']++;
+        }
+        for(int i=1;i<=mxu;i++){
+            vector<int>vis(26,0);
+            int l=0,r=0,cnt=0,j=0,c=0;
+            while(r<n){
+                if(cnt<=i){
+                    j = s[r]-'a';
+                    if(vis[j]==0){
+                        cnt++;
+                    }
+                    vis[j]++;
+                    if(vis[j]==k){
+                        c++;
+                    }
+                    r++;
                 }
                 else{
-                    if(f.find(s[j]-'a')!=f.end()){
-                        f[s[j]-'a']--;
-                        if(f[s[j]-'a']<k){
-                            m[s[j]-'a'] = f[s[j]-'a'];
-                            auto it = f.find(s[j]-'a');
-                            f.erase(it);
-                        }
+                    j = s[l]-'a';
+                    if(vis[j]==k){
+                        c--;
                     }
-                    else{
-                        m[s[j]-'a']--;
-                        if(m[s[j]-'a']==0){
-                            auto it = m.find(s[j]-'a');
-                            m.erase(it);
-                        }
+                    vis[j]--;
+                    if(vis[j]==0){
+                        cnt--;
                     }
+                    l++;
+                }
+
+                if(cnt==i && cnt==c){
+                    ans = max(ans, r-l);
                 }
             }
         }
+        
         return ans;
     }
 };
