@@ -1,27 +1,24 @@
 class Solution {
 public:
-    int count_k(vector<int>&nums, int k){
-        int cnt = 0;
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
         int n = nums.size();
-        int o = 0, j = 0;
-        for(int i = 0; i < n; i++){
-            while(o < k && j < n){
-                if(nums[j] == 1){
-                    o++;
+        int l=0,ans=0,sum=0,cnt=0;
+        for(int r=0;r<n;r++){
+            sum+=nums[r];
+            while(l<r && (nums[l]==0 || sum>goal)){
+                if(nums[l]==0){
+                    cnt++;
                 }
-                j++;
+                else{
+                    cnt=0;
+                }
+                sum-=nums[l];
+                l++;
             }
-            if(o >= k){
-                cnt += n - max(i,j-1);
-            }
-            if(nums[i] == 1){
-                o--;
+            if(sum==goal){
+                ans += 1+cnt;
             }
         }
-        return cnt;
-    }
-    int numSubarraysWithSum(vector<int>& nums, int goal) {
-        
-        return count_k(nums, goal) - count_k(nums, goal + 1) ; 
+        return ans;
     }
 };
