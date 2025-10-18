@@ -1,24 +1,25 @@
+using ll = long long;
 class Solution {
 public:
     long long minTime(vector<int>& skill, vector<int>& mana) {
-        int n = skill.size(), m = mana.size();
-        vector<long long> dp(n, 0);
-      
-        dp[0] = (long long)skill[0] * mana[0];
-        for (int i = 1; i < n; i++) 
-            dp[i] = dp[i - 1] + (long long)skill[i] * mana[0];
-        for (int j = 1; j < m; j++) {
-            long long sum = dp[0], c = 0;
-            for (int i = 1; i < n; i++) {
-                c += (long long)skill[i - 1] * mana[j];
-                sum = max(sum, dp[i] - c);
-            }
-            vector<long long> Ndp(n, 0);
-            Ndp[0] = sum + (long long)skill[0] * mana[j];
-            for (int i = 1; i < n; i++) 
-                Ndp[i] = Ndp[i - 1] + (long long)skill[i] * mana[j];
-            dp = move(Ndp);
+        int n = skill.size();
+        int m = mana.size();
+        vector<ll> time(n,0);
+        time[0] = skill[0]*mana[0];
+        for(int i=1;i<n;i++){
+            time[i] = skill[i]*mana[0]+time[i-1];
         }
-        return dp[n-1];
+        
+        for(int i=1;i<m;i++){
+            ll end = 0;
+            for(int j=0;j<n;j++){
+                end = max(end, time[j])+skill[j]*mana[i];
+            }
+            time[n-1] = end;
+            for(int j=n-2;j>=0;j--){
+                time[j] = time[j+1]-skill[j+1]*mana[i];
+            }
+        }
+        return time[n-1];
     }
 };
