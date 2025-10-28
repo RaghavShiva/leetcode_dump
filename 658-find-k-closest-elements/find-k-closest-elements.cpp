@@ -19,12 +19,10 @@ public:
             int a = l>=0?abs(arr[l]-x):1e9;
             int b = r<n?abs(arr[r]-x):1e9;
             if(a<=b){
-                cout<<arr[l]<<" ";
                 dq.push_front(arr[l]);
                 l--;
             }
             else{
-                cout<<arr[r]<<" ";
                 dq.push_back(arr[r]);
                 r++;
             }
