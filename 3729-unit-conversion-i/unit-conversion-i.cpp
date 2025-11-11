@@ -20,4 +20,31 @@ public:
         dfs(0,1,v,g);
         return v;
     }
+    /*
+    int power(int b, int p){
+        int ans=1;
+        while(p){
+            if(p%2){
+                ans = (ans*1ll*b)%mod;
+            }
+            b = (b*1ll*b)%mod;
+            p/=2;
+        }
+        return ans;
+    }
+    int clc(int c){
+        return power(c,mod-2);
+    }
+    vector<int> solve(vector<vector<int>> q, vector<int> v, int n){
+        vector<int> ans;
+        for(auto it:q){
+            int c = v[it[0]];
+            int d = v[it[1]];
+            c = (d*1ll*clc(c)))%mod;
+            ans.push_back(c);
+        }
+        return ans;
+    }
+
+    */
 };
