@@ -24,7 +24,7 @@ public:
                     l = m + 1;
                 }
             }
-            cout<<ind<<' ';
+           
             if(ind!=-1){
                 v += suf[ind];
             }
