@@ -22,7 +22,6 @@ public:
                     if(l<r){
                         k = l;
                         l=i;
-                        // r=i;
                     }
                     else{
                         k=r;
