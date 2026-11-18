@@ -21,8 +21,8 @@ public:
                 else{
                     if(l<r){
                         k = l;
-                        l=r;
-                        r=i;
+                        l=i;
+                        // r=i;
                     }
                     else{
                         k=r;
