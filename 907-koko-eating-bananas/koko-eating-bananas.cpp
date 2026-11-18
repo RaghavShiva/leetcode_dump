@@ -2,7 +2,7 @@ class Solution {
 public:
     bool fun(vector<int>&piles, int k, int h){
         int n = piles.size();
-        int hr=0;
+        
         for(int i=0;i<n;i++){
             h -= (piles[i]-1)/k+1;
         }
